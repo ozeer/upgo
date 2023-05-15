@@ -18,7 +18,6 @@ var fileName string
 var goInstallDir = "/usr/local"
 var ch = make(chan struct{})
 var latestVersion = ""
-var logFile = "/Users/zhouyang/web3/auto-upgrade-go/time.txt"
 
 func main() {
 	latestVersion = getLatestVersion()
@@ -40,10 +39,7 @@ func main() {
 		<-ch
 	}
 
-	result := install(fileName)
-	if result {
-		Command("echo " + fileName + "更新成功" + " >> " + logFile)
-	}
+	install(fileName)
 }
 
 func install(fileName string) bool {
