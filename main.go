@@ -54,8 +54,18 @@ func install(fileName string) bool {
 }
 
 func getLatestVersion() string {
-	doc, err := goquery.NewDocument(base_url)
+	// Request the HTML page.
+	res, err := http.Get(base_url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+	if res.StatusCode != 200 {
+		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+	}
 
+	// Load the HTML document
+	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -94,6 +104,10 @@ func downloaded(fullURLFile string) bool {
 	defer resp.Body.Close()
 
 	size, err := io.Copy(file, resp.Body)
+
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	defer file.Close()
 
