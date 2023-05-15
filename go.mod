@@ -1,4 +1,4 @@
-module auto-upgrade-go
+module upgo
 
 go 1.20
 
