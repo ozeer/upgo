@@ -33,8 +33,13 @@ func main() {
 		return
 	}
 
-	fmt.Println("==> Upgrading...")
-	fmt.Printf("go  %s  ->   %s\n", currentVersion, latestVersion)
+	// 如果未安装golang，提示语
+	if currentVersion == "0" {
+		fmt.Println("==> Preparing for installation...")
+	} else {
+		fmt.Println("==> Upgrading...")
+		fmt.Printf("go  %s  ->   %s\n", currentVersion, latestVersion)
+	}
 
 	// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
 	fileName = "go" + latestVersion + ".darwin-amd64.tar.gz"
