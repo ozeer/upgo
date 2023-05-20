@@ -28,7 +28,8 @@ func main() {
 	compareVersion := version.CompareVersionWithCache(latestVersion, currentVersion)
 
 	if compareVersion < 1 {
-		fmt.Printf("You are already using the latest available Golang version %s (stable channel).\n", latestVersion)
+		text := fmt.Sprintf("You are already using the latest available Golang version %s (stable).", latestVersion)
+		Colorize(text, FgGreen)
 		return
 	}
 

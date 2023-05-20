@@ -21,3 +21,4 @@ upgo
 * 版本号比较：https://segmentfault.com/a/1190000041597938
 * 信息检索：site:segmentfault.com golang版本号比较
 * 优化版本号比较：https://github.com/Isites/ares/blob/main/strs/version.go
+* 终端颜色显示：https://shipengqi.github.io/posts/2019-09-18-go-color/
