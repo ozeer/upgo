@@ -8,7 +8,9 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
+	"runtime"
 	"strings"
+	"upgo/version"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -17,17 +19,26 @@ var base_url = "https://go.dev/dl/"
 var fileName string
 var goInstallDir = "/usr/local"
 var ch = make(chan struct{})
-var latestVersion = ""
 
 func main() {
-	latestVersion = getLatestVersion()
+	latestVersionGo := getLatestVersion()
+
+	latestVersion := latestVersionGo[2:]
+	currentVersion := runtime.Version()[2:]
+	compareVersion := version.CompareVersionWithCache(latestVersion, currentVersion)
+
+	if compareVersion < 1 {
+		fmt.Printf("当前已经是最新版本!当前版本：%s，最新版本：%s\n", currentVersion, latestVersion)
+		return
+	}
+
+	fmt.Printf("有新版本可更新!当前版本：%s，可更新版本：%s\n", currentVersion, latestVersion)
+
 	// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
-	fileName = latestVersion + ".darwin-amd64.tar.gz"
+	fileName = "go" + latestVersion + ".darwin-amd64.tar.gz"
 
 	file, _ := PathExists(fileName)
 	if !file {
-		log := fmt.Sprintf("文件%s不存在！下载中...", fileName)
-		fmt.Println(log)
 		downloadUrl := base_url + fileName
 		go func() {
 			download := downloaded(downloadUrl)
@@ -42,8 +53,14 @@ func main() {
 	install(fileName)
 }
 
+// 安装Golang
 func install(fileName string) bool {
 	fmt.Println("最新golang安装中...")
+
+	// 删除老的golang
+	deleteGoShell := "sudo rm -rf /usr/local/go"
+	Command(deleteGoShell)
+
 	shell := "sudo tar -C " + goInstallDir + " -xzf " + fileName
 	result := Command(shell)
 	if result {
@@ -53,6 +70,7 @@ func install(fileName string) bool {
 	return result
 }
 
+// 获取最新Golang的版本号
 func getLatestVersion() string {
 	// Request the HTML page.
 	res, err := http.Get(base_url)
@@ -75,6 +93,7 @@ func getLatestVersion() string {
 	return latestVersion
 }
 
+// 根据给定url下载文件
 func downloaded(fullURLFile string) bool {
 	// Build fileName from fullPath
 	fileURL, err := url.Parse(fullURLFile)
@@ -118,6 +137,7 @@ func downloaded(fullURLFile string) bool {
 	return true
 }
 
+// 判断文件是否存在
 func PathExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 	if err == nil {
@@ -129,6 +149,7 @@ func PathExists(path string) (bool, error) {
 	return false, err
 }
 
+// 执行命令方法
 func Command(cmd string) bool {
 	c := exec.Command("/bin/sh", "-c", cmd)
 	c.Stdin = os.Stdin

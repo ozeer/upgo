@@ -19,3 +19,6 @@ launchctl list | grep test
 # 参考文章
 * https://www.jianshu.com/p/4fbad2909a21
 * https://www.hanleylee.com/articles/manage-process-and-timed-task-by-launchd
+* 版本号比较：https://segmentfault.com/a/1190000041597938
+* 信息检索：site:segmentfault.com golang版本号比较
+* 优化版本号比较：https://github.com/Isites/ares/blob/main/strs/version.go
