@@ -8,7 +8,6 @@ import (
 	"net/url"
 	"os"
 	"os/exec"
-	"runtime"
 	"strings"
 	"upgo/version"
 
@@ -22,9 +21,10 @@ var ch = make(chan struct{})
 
 func main() {
 	latestVersionGo := getLatestVersion()
+	currentVersionGo := getCurrentGoVersion()
 
 	latestVersion := latestVersionGo[2:]
-	currentVersion := runtime.Version()[2:]
+	currentVersion := currentVersionGo[2:]
 	compareVersion := version.CompareVersionWithCache(latestVersion, currentVersion)
 
 	if compareVersion < 1 {
@@ -56,10 +56,11 @@ func main() {
 
 // 安装Golang
 func install(fileName string) bool {
+	fmt.Println("==> Installing golang...")
+
 	// 删除老的golang
 	deleteGoShell := "sudo rm -rf /usr/local/go"
 	Command(deleteGoShell)
-	fmt.Println("==> Installing golang...")
 
 	shell := "sudo tar -C " + goInstallDir + " -xzf " + fileName
 	result := Command(shell)
@@ -95,7 +96,6 @@ func getLatestVersion() string {
 
 // 根据给定url下载文件
 func downloaded(fullURLFile string) bool {
-	fmt.Println("==> Fetching golang")
 	// Build fileName from fullPath
 	fileURL, err := url.Parse(fullURLFile)
 	if err != nil {
@@ -163,4 +163,16 @@ func Command(cmd string) bool {
 	}
 	fmt.Println("==> Running: ", cmd)
 	return true
+}
+
+func getCurrentGoVersion() string {
+	cmd := exec.Command("go", "version")
+	output, err := cmd.Output()
+	if err != nil {
+		// 无法获取Go版本
+		return "go0"
+	}
+
+	version := strings.Split(string(output), " ")[2]
+	return version
 }
