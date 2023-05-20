@@ -1,20 +1,16 @@
-# 编译
-go build
+# 编译安装
+```
+go install
+```
 
-# 修改文件权限
-sudo chmod 777 auto-upgrade-go
+# 执行更新命令upgo
+```
+upgo
+```
 
-# 关闭老的mac定时任务
-launchctl stop -w com.test.plist
-launchctl unload -w com.test.plist
-
-# 重启mac定时任务
-launchctl start -w com.test.plist
-launchctl load -w com.test.plist 
-
-# 查看新的定时任务是否启动
-launchctl list | grep test
-
+# Todo
+* 代码结构优化
+* 增加更多丰富命令：如upgo update、update install，命令、提示展示颜色
 
 # 参考文章
 * https://www.jianshu.com/p/4fbad2909a21
