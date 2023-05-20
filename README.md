@@ -20,11 +20,3 @@ upgo
 * [ ] 文档和说明：编写清晰的文档和说明，包括程序的使用方法、配置参数说明、依赖库和工具的安装要求等，以便其他人能够理解和使用你的程序。
 * [ ] 持续改进：根据用户反馈和自身需求，持续改进你的程序。考虑添加新功能、改善性能、增加错误处理和安全性等方面的改进。
 * [x] 根据实际需求和技术栈，你可能需要做一些调整和扩展。同时，你可以参考相关的开源项目和工具，如 GoReleaser、GoProxy 等，以获得更多灵感和参考资料。
-
-# 参考文章
-* https://www.jianshu.com/p/4fbad2909a21
-* https://www.hanleylee.com/articles/manage-process-and-timed-task-by-launchd
-* 版本号比较：https://segmentfault.com/a/1190000041597938
-* 信息检索：site:segmentfault.com golang版本号比较
-* 优化版本号比较：https://github.com/Isites/ares/blob/main/strs/version.go
-* 终端颜色显示：https://shipengqi.github.io/posts/2019-09-18-go-color/
