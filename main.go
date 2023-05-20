@@ -35,9 +35,9 @@ func main() {
 
 	// 如果未安装golang，提示语
 	if currentVersion == "0" {
-		fmt.Println("==> Preparing for installation...")
+		Colorize("==> Preparing for installation...", FgGreen)
 	} else {
-		fmt.Println("==> Upgrading...")
+		Colorize("==> Upgrading...", FgGreen)
 		fmt.Printf("go  %s  ->   %s\n", currentVersion, latestVersion)
 	}
 
@@ -72,6 +72,7 @@ func install(fileName string) bool {
 	result := Command(shell)
 	if result {
 		Command("rm " + fileName)
+		Colorize("==> Congratulations! "+fileName+" Installed.", FgGreen)
 	}
 
 	return result
