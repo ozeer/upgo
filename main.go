@@ -28,11 +28,12 @@ func main() {
 	compareVersion := version.CompareVersionWithCache(latestVersion, currentVersion)
 
 	if compareVersion < 1 {
-		fmt.Printf("当前已经是最新版本!当前版本：%s，最新版本：%s\n", currentVersion, latestVersion)
+		fmt.Printf("You are already using the latest available Golang version %s (stable channel).\n", latestVersion)
 		return
 	}
 
-	fmt.Printf("有新版本可更新!当前版本：%s，可更新版本：%s\n", currentVersion, latestVersion)
+	fmt.Println("==> Upgrading...")
+	fmt.Printf("go  %s  ->   %s\n", currentVersion, latestVersion)
 
 	// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
 	fileName = "go" + latestVersion + ".darwin-amd64.tar.gz"
@@ -55,11 +56,10 @@ func main() {
 
 // 安装Golang
 func install(fileName string) bool {
-	fmt.Println("最新golang安装中...")
-
 	// 删除老的golang
 	deleteGoShell := "sudo rm -rf /usr/local/go"
 	Command(deleteGoShell)
+	fmt.Println("==> Installing golang...")
 
 	shell := "sudo tar -C " + goInstallDir + " -xzf " + fileName
 	result := Command(shell)
@@ -95,6 +95,7 @@ func getLatestVersion() string {
 
 // 根据给定url下载文件
 func downloaded(fullURLFile string) bool {
+	fmt.Println("==> Fetching golang")
 	// Build fileName from fullPath
 	fileURL, err := url.Parse(fullURLFile)
 	if err != nil {
@@ -131,8 +132,7 @@ func downloaded(fullURLFile string) bool {
 	defer file.Close()
 
 	fileSize := fmt.Sprintf("%.2fMB", float64(size)/float64(1024*1024))
-	log := fmt.Sprintf("%s下载完成！大小%s", fileName, fileSize)
-	fmt.Println(log)
+	fmt.Printf("==> Downloading %s（%s）\n", fullURLFile, fileSize)
 
 	return true
 }
@@ -161,6 +161,6 @@ func Command(cmd string) bool {
 		os.Exit(1)
 		return false
 	}
-	fmt.Println("命令执行成功: ", cmd)
+	fmt.Println("==> Running: ", cmd)
 	return true
 }
