@@ -7,9 +7,18 @@ go install
 ```
 upgo
 ```
+暂无更新
+
 <img width="724" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/762edf53-8ba4-468b-82e5-b22aab80d19f">
 
+首次安装
+
 <img width="767" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/bdb864d8-a709-4c74-977c-59d06c06eea4">
+
+升级
+
+<img width="761" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/67a27a7f-d0ed-449f-a80b-779577747339">
+
 
 # Todo
 * [ ] 代码结构优化
