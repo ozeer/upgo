@@ -1,5 +1,6 @@
 # 编译安装
 ```
+git clone git@github.com:ozeer/upgo.git
 go install
 ```
 
