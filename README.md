@@ -7,6 +7,9 @@ go install
 ```
 upgo
 ```
+<img width="724" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/762edf53-8ba4-468b-82e5-b22aab80d19f">
+
+<img width="767" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/bdb864d8-a709-4c74-977c-59d06c06eea4">
 
 # Todo
 * [ ] 代码结构优化
