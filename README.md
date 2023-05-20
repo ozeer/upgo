@@ -10,7 +10,10 @@ upgo
 
 # Todo
 * 代码结构优化
-* 增加更多丰富命令：如upgo update、update install，命令、提示展示颜色
+* 增加更多丰富命令：如upgo update、upgo install、upgo uninstall，命令、提示展示颜色
+* 支持傻瓜式一步步安装，指定安装路径
+* 支持定期自动更新
+* 支持更新提示弹窗通知
 
 # 参考文章
 * https://www.jianshu.com/p/4fbad2909a21
