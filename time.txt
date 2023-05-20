@@ -1,2 +1,0 @@
-go1.20.4.darwin-amd64.tar.gz更新成功
-go1.20.4.darwin-amd64.tar.gz更新成功
