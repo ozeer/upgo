@@ -9,15 +9,16 @@ upgo
 ```
 暂无更新
 
-<img width="724" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/762edf53-8ba4-468b-82e5-b22aab80d19f">
+<img width="643" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/55aa6f74-ffb5-4754-b9ec-38c4ccaf3b84">
 
 首次安装
 
-<img width="767" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/bdb864d8-a709-4c74-977c-59d06c06eea4">
+<img width="647" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/d7ff9d8a-d9a5-4c4e-b5f3-065f9528323c">
 
 升级
 
-<img width="761" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/67a27a7f-d0ed-449f-a80b-779577747339">
+<img width="642" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/9e7b7e6c-abd1-4244-8b65-7de1cf7eb888">
+
 
 
 # Todo
