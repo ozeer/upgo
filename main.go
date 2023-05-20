@@ -59,12 +59,12 @@ func install(fileName string) bool {
 
 	// 删除老的golang
 	deleteGoShell := "sudo rm -rf /usr/local/go"
-	Command(deleteGoShell)
+	command(deleteGoShell)
 
 	shell := "sudo tar -C " + goInstallDir + " -xzf " + fileName
-	result := Command(shell)
+	result := command(shell)
 	if result {
-		Command("rm " + fileName)
+		command("rm " + fileName)
 		color.Cyan("==> Congratulations! " + fileName + " Installed.")
 	}
 
@@ -72,7 +72,7 @@ func install(fileName string) bool {
 }
 
 // 执行命令方法
-func Command(cmd string) bool {
+func command(cmd string) bool {
 	c := exec.Command("/bin/sh", "-c", cmd)
 	c.Stdin = os.Stdin
 	c.Stdout = os.Stdout
