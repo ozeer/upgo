@@ -51,7 +51,7 @@ func init() {
 		`Available Commands:`, `{{StyleHeading "Available Commands:"}}`,
 		`Global Flags:`, `{{StyleHeading "Global Flags:"}}`,
 		// The following one steps on "Global Flags:"
-		// `Flags:`, `{{StyleHeading "Flags:"}}`,
+		`Flags:`, `{{StyleHeading "Flags:"}}`,
 	).Replace(usageTemplate)
 	re := regexp.MustCompile(`(?m)^Flags:\s*$`)
 	usageTemplate = re.ReplaceAllLiteralString(usageTemplate, `{{StyleHeading "Flags:"}}`)
