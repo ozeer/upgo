@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os/exec"
@@ -16,7 +17,7 @@ type Version struct {
 	Version string `json:"version"`
 }
 
-const DEFAULT_GOLANG_VERSION = "0"
+const DEFAULT_GOLANG_VERSION = "go0"
 
 // 方式一：通过解析Go官方网页获取最新稳定版本Golang编号
 func GetLatestVersionFromHtml() string {
@@ -43,23 +44,44 @@ func GetLatestVersionFromHtml() string {
 func GetLatestVersionFromApi() string {
 	resp, err := http.Get("https://go.dev/dl/?mode=json&include=stable")
 	if err != nil {
-		fmt.Println("Error fetching version:", err)
-		return DEFAULT_GOLANG_VERSION
+		panic(fmt.Sprintf("Error fetching version: %s", err.Error()))
 	}
 	defer resp.Body.Close()
 
 	var versions []Version
 	err = json.NewDecoder(resp.Body).Decode(&versions)
 	if err != nil {
-		fmt.Println("Error decoding JSON:", err)
-		return DEFAULT_GOLANG_VERSION
+		panic(fmt.Sprintf("Error decoding JSON: %s", err.Error()))
 	}
 
-	latestVersion := DEFAULT_GOLANG_VERSION
+	latestVersion := ""
 	if len(versions) > 0 {
 		latestVersion = versions[0].Version
 	} else {
-		fmt.Println("No stable Go versions found.")
+		panic("No stable Go versions found.")
+	}
+
+	return latestVersion
+}
+
+// 方式三：使用官方更精简的接口获取最新稳定版本Golang编号
+func GetLatestVersionFromApiSimple() string {
+	resp, err := http.Get("https://go.dev/VERSION?m=text")
+	if err != nil {
+		panic(fmt.Sprintf("Error fetching version: %s", err.Error()))
+	}
+	defer resp.Body.Close()
+
+	latestVersion := ""
+	if resp.StatusCode == http.StatusOK {
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			panic(fmt.Sprintf("Error reading response: %s", err.Error()))
+		}
+
+		latestVersion = string(body)
+	} else {
+		panic(fmt.Sprintf("Error fetching version:  %s", resp.Status))
 	}
 
 	return latestVersion
@@ -71,7 +93,7 @@ func GetCurrentGoVersion() string {
 	output, err := cmd.Output()
 	if err != nil {
 		// 无法获取Go版本
-		return "go0"
+		return DEFAULT_GOLANG_VERSION
 	}
 
 	version := strings.Split(string(output), " ")[2]

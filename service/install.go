@@ -15,14 +15,14 @@ var ch = make(chan struct{})
 
 // 开始
 func Start() {
-	latestVersionGo := GetLatestVersionFromApi()
+	latestVersionGo := GetLatestVersionFromApiSimple()
 	currentVersionGo := GetCurrentGoVersion()
 
 	latestVersion := latestVersionGo[2:]
 	currentVersion := currentVersionGo[2:]
 
 	// 如果未安装golang，提示语
-	if currentVersion == DEFAULT_GOLANG_VERSION {
+	if currentVersion == "0" {
 		color.Cyan("==> Preparing for installation...")
 	} else {
 		if !HasNewVersion(latestVersion, currentVersion) {

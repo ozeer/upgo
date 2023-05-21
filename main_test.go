@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetVersion(t *testing.T) {
-	t.Logf("Latest version: %s", service.GetLatestVersionFromApi())
+	t.Logf("Latest version: %s", service.GetLatestVersionFromApiSimple())
 }
 
 func TestDownloadFile(t *testing.T) {
