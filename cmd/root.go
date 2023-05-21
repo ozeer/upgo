@@ -5,8 +5,11 @@ package cmd
 
 import (
 	"os"
+	"regexp"
+	"strings"
 
 	"github.com/common-nighthawk/go-figure"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
@@ -38,6 +41,21 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+
+	// set color for the header
+	cobra.AddTemplateFunc("StyleHeading", color.New(color.FgGreen).SprintFunc())
+	usageTemplate := rootCmd.UsageTemplate()
+	usageTemplate = strings.NewReplacer(
+		`Usage:`, `{{StyleHeading "Usage:"}}`,
+		`Aliases:`, `{{StyleHeading "Aliases:"}}`,
+		`Available Commands:`, `{{StyleHeading "Available Commands:"}}`,
+		`Global Flags:`, `{{StyleHeading "Global Flags:"}}`,
+		// The following one steps on "Global Flags:"
+		// `Flags:`, `{{StyleHeading "Flags:"}}`,
+	).Replace(usageTemplate)
+	re := regexp.MustCompile(`(?m)^Flags:\s*$`)
+	usageTemplate = re.ReplaceAllLiteralString(usageTemplate, `{{StyleHeading "Flags:"}}`)
+	rootCmd.SetUsageTemplate(usageTemplate)
 
 	// print ASCII text
 	figure.NewColorFigure("UpGo", "", "green", true).Print()
