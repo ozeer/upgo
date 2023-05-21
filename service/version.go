@@ -1,6 +1,8 @@
 package service
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os/exec"
@@ -10,8 +12,14 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-// 获取最新Golang的版本号
-func GetLatestVersion() string {
+type Version struct {
+	Version string `json:"version"`
+}
+
+const DEFAULT_GOLANG_VERSION = "0"
+
+// 方式一：通过解析Go官方网页获取最新稳定版本Golang编号
+func GetLatestVersionFromHtml() string {
 	res, err := http.Get(base_url)
 	if err != nil {
 		log.Fatal(err)
@@ -27,6 +35,32 @@ func GetLatestVersion() string {
 	}
 
 	latestVersion := doc.Find("div.collapsed").Find("span").Eq(0).Text()
+
+	return latestVersion
+}
+
+// 方式二：通过Go官方的接口获取最新稳定版本Golang编号
+func GetLatestVersionFromApi() string {
+	resp, err := http.Get("https://go.dev/dl/?mode=json&include=stable")
+	if err != nil {
+		fmt.Println("Error fetching version:", err)
+		return DEFAULT_GOLANG_VERSION
+	}
+	defer resp.Body.Close()
+
+	var versions []Version
+	err = json.NewDecoder(resp.Body).Decode(&versions)
+	if err != nil {
+		fmt.Println("Error decoding JSON:", err)
+		return DEFAULT_GOLANG_VERSION
+	}
+
+	latestVersion := DEFAULT_GOLANG_VERSION
+	if len(versions) > 0 {
+		latestVersion = versions[0].Version
+	} else {
+		fmt.Println("No stable Go versions found.")
+	}
 
 	return latestVersion
 }
@@ -53,6 +87,7 @@ func HasNewVersion(latest, current string) bool {
 }
 
 // 查询所有稳定版本的Golang
+// https://go.dev/dl/?mode=json&include=all
 func AllStableVersion() {
 
 }
