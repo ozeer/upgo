@@ -3,7 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os/exec"
@@ -74,7 +74,7 @@ func GetLatestVersionFromApiSimple() string {
 
 	latestVersion := ""
 	if resp.StatusCode == http.StatusOK {
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			panic(fmt.Sprintf("Error reading response: %s", err.Error()))
 		}
