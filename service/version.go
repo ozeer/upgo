@@ -1,4 +1,4 @@
-package main
+package service
 
 import (
 	"log"
@@ -12,7 +12,6 @@ import (
 
 // 获取最新Golang的版本号
 func GetLatestVersion() string {
-	// Request the HTML page.
 	res, err := http.Get(base_url)
 	if err != nil {
 		log.Fatal(err)
@@ -22,7 +21,6 @@ func GetLatestVersion() string {
 		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
 	}
 
-	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
 		log.Fatal(err)
@@ -52,4 +50,9 @@ func HasNewVersion(latest, current string) bool {
 	currentVersion, _ := semver.NewVersion(current)
 
 	return latestVersion.GreaterThan(currentVersion)
+}
+
+// 查询所有稳定版本的Golang
+func AllStableVersion() {
+
 }
