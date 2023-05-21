@@ -9,7 +9,7 @@ import (
 var updateCmd = &cobra.Command{
 	Use:     "update",
 	Short:   "Install or update to the latest version of Golang",
-	Aliases: []string{"upgrade", "-u"},
+	Aliases: []string{"upgrade", "u"},
 	Run: func(cmd *cobra.Command, args []string) {
 		// 执行更新最新golang版本
 		service.Start()
