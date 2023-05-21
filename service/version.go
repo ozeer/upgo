@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os/exec"
 	"strings"
+	"upgo/global"
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/PuerkitoBio/goquery"
@@ -23,16 +23,16 @@ const DEFAULT_GOLANG_VERSION = "go0"
 func GetLatestVersionFromHtml() string {
 	res, err := http.Get(base_url)
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("new document from reader error: %s", err.Error()))
 	}
 	defer res.Body.Close()
 	if res.StatusCode != 200 {
-		log.Fatalf("status code error: %d %s", res.StatusCode, res.Status)
+		global.Error(fmt.Sprintf("status code error: %d %s", res.StatusCode, res.Status))
 	}
 
 	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("new document from reader error: %s", err.Error()))
 	}
 
 	latestVersion := doc.Find("div.collapsed").Find("span").Eq(0).Text()
@@ -44,21 +44,21 @@ func GetLatestVersionFromHtml() string {
 func GetLatestVersionFromApi() string {
 	resp, err := http.Get("https://go.dev/dl/?mode=json&include=stable")
 	if err != nil {
-		panic(fmt.Sprintf("Error fetching version: %s", err.Error()))
+		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
 	}
 	defer resp.Body.Close()
 
 	var versions []Version
 	err = json.NewDecoder(resp.Body).Decode(&versions)
 	if err != nil {
-		panic(fmt.Sprintf("Error decoding JSON: %s", err.Error()))
+		global.Error(fmt.Sprintf("error decoding JSON: %s", err.Error()))
 	}
 
 	latestVersion := ""
 	if len(versions) > 0 {
 		latestVersion = versions[0].Version
 	} else {
-		panic("No stable Go versions found.")
+		global.Error("no stable Go versions found.")
 	}
 
 	return latestVersion
@@ -68,7 +68,7 @@ func GetLatestVersionFromApi() string {
 func GetLatestVersionFromApiSimple() string {
 	resp, err := http.Get("https://go.dev/VERSION?m=text")
 	if err != nil {
-		panic(fmt.Sprintf("Error fetching version: %s", err.Error()))
+		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
 	}
 	defer resp.Body.Close()
 
@@ -76,12 +76,12 @@ func GetLatestVersionFromApiSimple() string {
 	if resp.StatusCode == http.StatusOK {
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			panic(fmt.Sprintf("Error reading response: %s", err.Error()))
+			global.Error(fmt.Sprintf("error reading response: %s", err.Error()))
 		}
 
 		latestVersion = string(body)
 	} else {
-		panic(fmt.Sprintf("Error fetching version:  %s", resp.Status))
+		global.Error(fmt.Sprintf("Error fetching version:  %s", resp.Status))
 	}
 
 	return latestVersion

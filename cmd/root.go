@@ -7,6 +7,7 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"upgo/global"
 
 	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"
@@ -28,6 +29,7 @@ var rootCmd = &cobra.Command{
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
+		global.Error(err.Error())
 		os.Exit(1)
 	}
 }

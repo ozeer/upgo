@@ -3,11 +3,11 @@ package service
 import (
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
 	"strings"
+	"upgo/global"
 )
 
 // 根据给定url下载文件
@@ -15,7 +15,7 @@ func Downloaded(fullUrlFile string) bool {
 	// Build fileName from fullPath
 	fileURL, err := url.Parse(fullUrlFile)
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("url parse error: %s", err.Error()))
 	}
 	path := fileURL.Path
 	segments := strings.Split(path, "/")
@@ -24,7 +24,7 @@ func Downloaded(fullUrlFile string) bool {
 	// Create blank file
 	file, err := os.Create(fileName)
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("create file error: %s", err.Error()))
 	}
 	client := http.Client{
 		CheckRedirect: func(r *http.Request, via []*http.Request) error {
@@ -35,14 +35,14 @@ func Downloaded(fullUrlFile string) bool {
 	// Put content on file
 	resp, err := client.Get(fullUrlFile)
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("get file error: %s", err.Error()))
 	}
 	defer resp.Body.Close()
 
 	size, err := io.Copy(file, resp.Body)
 
 	if err != nil {
-		log.Fatal(err)
+		global.Error(fmt.Sprintf("copy data error: %s", err.Error()))
 	}
 
 	defer file.Close()

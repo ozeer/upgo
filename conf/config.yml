@@ -1,0 +1,14 @@
+app:
+  name: UpGo
+  debug: false
+log:
+  # 日志文件最大尺寸(M)，超出限制后开始自动分割
+  MaxSize: 1
+  # 保留旧文件的最大个数
+  MaxBackups: 10
+  # 保留旧文件的最大天数
+  MaxAge: 90
+  # 日志文件是否压缩
+  Compress: false
+  # 日志存放目录
+  Dir: "/tmp/UpGo/"

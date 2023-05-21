@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"upgo/global"
 
 	"github.com/fatih/color"
 )
 
 var base_url = "https://go.dev/dl/"
-var fileName string
 var goInstallDir = "/usr/local"
 var ch = make(chan struct{})
 
@@ -36,7 +36,7 @@ func Start() {
 	}
 
 	// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
-	fileName = "go" + latestVersion + ".darwin-amd64.tar.gz"
+	fileName := "go" + latestVersion + ".darwin-amd64.tar.gz"
 
 	file, _ := PathExists(fileName)
 	if !file {
@@ -80,7 +80,7 @@ func Command(cmd string) bool {
 	c.Stderr = os.Stderr
 	err := c.Run()
 	if err != nil {
-		fmt.Println(err)
+		global.Error(fmt.Sprintf("command exec error: %s", err.Error()))
 		os.Exit(1)
 		return false
 	}
