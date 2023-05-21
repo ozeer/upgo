@@ -8,18 +8,17 @@ go install
 ```
 upgo
 ```
-暂无更新
+命令行首页
 
-<img width="643" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/55aa6f74-ffb5-4754-b9ec-38c4ccaf3b84">
+<img width="560" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/81a23cda-26cf-49a2-a315-519865961ff5">
 
 首次安装
 
-<img width="647" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/d7ff9d8a-d9a5-4c4e-b5f3-065f9528323c">
+<img width="626" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/f886528f-5a90-4555-943a-bd1d70ed1bf3">
 
-升级
+升级版本
 
-<img width="642" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/9e7b7e6c-abd1-4244-8b65-7de1cf7eb888">
-
+<img width="637" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/f2067203-4b05-4cf6-89c0-9249b6506176">
 
 
 # Todo
