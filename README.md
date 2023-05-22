@@ -4,7 +4,7 @@ git clone git@github.com:ozeer/upgo.git
 go install
 ```
 
-# 执行更新命令upgo
+# 执行命令upgo
 ```
 upgo
 ```
