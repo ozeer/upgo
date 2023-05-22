@@ -12,7 +12,7 @@ import (
 
 const DOWNLOAD_WEB = "https://go.dev/dl/"
 
-// 根据给定url下载文件
+// 下载指定版本的Golang文件
 func Downloaded(stFileName string) bool {
 	// Build fileName from fullPath
 	fullUrlFile := DOWNLOAD_WEB + stFileName

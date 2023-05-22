@@ -85,3 +85,13 @@ func Command(cmd string) bool {
 	PrintMagenta("==> Running: " + cmd)
 	return true
 }
+
+// 获取Go的安装目录
+func GetGoRootDir() string {
+	goRoot := os.Getenv("GOROOT")
+	if goRoot == "" {
+		global.Error("Failed to get Go installation directory.")
+	}
+
+	return goRoot
+}

@@ -18,6 +18,7 @@ type Version struct {
 	Version string `json:"version"`
 }
 
+// 未安装golang时的标识
 const DEFAULT_GOLANG_VERSION = "go0"
 
 // 方式一：通过解析Go官方网页获取最新稳定版本Golang编号
@@ -109,7 +110,7 @@ func HasNewVersion(latest, current string) bool {
 	return latestVersion.GreaterThan(currentVersion)
 }
 
-// 查询最近10个最新稳定版本的Golang
+// 查询最近15个最新稳定版本的Golang
 // https://go.dev/dl/?mode=json&include=all
 func TopStableVersion() {
 	resp, err := http.Get("https://go.dev/dl/?mode=json&include=all")
@@ -126,18 +127,16 @@ func TopStableVersion() {
 
 	if len(versions) > 0 {
 		yellow := color.New(color.FgYellow).SprintFunc()
-		text := yellow("Top ten available stable versions: ")
-		fmt.Println(text)
-		topTenVersions := versions[:10]
-		for _, v := range topTenVersions {
-			color.Cyan(v.Version)
-		}
+		fmt.Println(yellow("Top 15 available stable versions: "))
 
+		topTenVersions := versions[:15]
+		PrintFixedColumnVersion(topTenVersions)
 	} else {
 		global.Error("no stable Go versions found.")
 	}
 }
 
+// 检查当前最新版本的golang
 func CheckNewestVersion() {
 	latestVersionGo := GetLatestVersionFromApiSimple()
 	currentVersionGo := GetCurrentGoVersion()
@@ -161,6 +160,7 @@ func CheckNewestVersion() {
 	color.Cyan(text)
 }
 
+// 检查版本号格式是否有效
 func IsValidVersion(version string) bool {
 	_, err := semver.NewVersion(version)
 	if err != nil {
