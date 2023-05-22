@@ -35,14 +35,19 @@ func Start() {
 		fmt.Printf("go  %s  ->   %s\n", currentVersion, latestVersion)
 	}
 
-	// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
+	// go1.20.4.darwin-amd64.tar.gz
 	fileName := "go" + latestVersion + ".darwin-amd64.tar.gz"
+	Install(fileName)
+}
+
+// 安装Golang
+func Install(fileName string) bool {
+	PrintMagenta("==> Installing golang...")
 
 	file, _ := PathExists(fileName)
 	if !file {
-		downloadUrl := base_url + fileName
 		go func() {
-			download := Downloaded(downloadUrl)
+			download := Downloaded(fileName)
 			if download {
 				ch <- struct{}{}
 			}
@@ -50,13 +55,6 @@ func Start() {
 
 		<-ch
 	}
-
-	Install(fileName)
-}
-
-// 安装Golang
-func Install(fileName string) bool {
-	fmt.Println("==> Installing golang...")
 
 	// 删除老的golang
 	deleteGoShell := "sudo rm -rf /usr/local/go"
@@ -84,6 +82,6 @@ func Command(cmd string) bool {
 		os.Exit(1)
 		return false
 	}
-	fmt.Println("==> Running: ", cmd)
+	PrintMagenta("==> Running: " + cmd)
 	return true
 }

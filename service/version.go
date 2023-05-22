@@ -11,6 +11,7 @@ import (
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/PuerkitoBio/goquery"
+	"github.com/fatih/color"
 )
 
 type Version struct {
@@ -108,8 +109,64 @@ func HasNewVersion(latest, current string) bool {
 	return latestVersion.GreaterThan(currentVersion)
 }
 
-// 查询所有稳定版本的Golang
+// 查询最近10个最新稳定版本的Golang
 // https://go.dev/dl/?mode=json&include=all
-func AllStableVersion() {
+func TopStableVersion() {
+	resp, err := http.Get("https://go.dev/dl/?mode=json&include=all")
+	if err != nil {
+		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
+	}
+	defer resp.Body.Close()
 
+	var versions []Version
+	err = json.NewDecoder(resp.Body).Decode(&versions)
+	if err != nil {
+		global.Error(fmt.Sprintf("error decoding JSON: %s", err.Error()))
+	}
+
+	if len(versions) > 0 {
+		yellow := color.New(color.FgYellow).SprintFunc()
+		text := yellow("Top ten available stable versions: ")
+		fmt.Println(text)
+		topTenVersions := versions[:10]
+		for _, v := range topTenVersions {
+			color.Cyan(v.Version)
+		}
+
+	} else {
+		global.Error("no stable Go versions found.")
+	}
+}
+
+func CheckNewestVersion() {
+	latestVersionGo := GetLatestVersionFromApiSimple()
+	currentVersionGo := GetCurrentGoVersion()
+
+	latestVersion := latestVersionGo[2:]
+	currentVersion := currentVersionGo[2:]
+
+	// 如果未安装golang，提示语
+	text := ""
+	if currentVersion == "0" {
+		red := color.New(color.FgRed).SprintFunc()
+		text = red("Golang is not installed locally!")
+	} else {
+		if HasNewVersion(latestVersion, currentVersion) {
+			magenta := color.New(color.FgMagenta).SprintFunc()
+			text = fmt.Sprintf("New version available for update: %s  ->   %s\n", magenta(currentVersion), magenta(latestVersion))
+		} else {
+			text = fmt.Sprintf("You are already using the latest available Golang version %s (stable).", latestVersion)
+		}
+	}
+	color.Cyan(text)
+}
+
+func IsValidVersion(version string) bool {
+	_, err := semver.NewVersion(version)
+	if err != nil {
+		global.Error(fmt.Sprintf("Error parsing version: %s", err.Error()))
+		return false
+	}
+
+	return true
 }

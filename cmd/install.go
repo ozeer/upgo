@@ -4,8 +4,13 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
+	"upgo/service"
 
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +20,23 @@ var installCmd = &cobra.Command{
 	Short: "Install the specified version of Golang",
 	Long:  `安装指定版本Golang.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("install called")
+		reader := bufio.NewReader(os.Stdin)
+		yellow := color.New(color.FgYellow).SprintFunc()
+
+		for {
+			fmt.Print(yellow("请输入你想安装的Golang版本号(如：1.20.4): "))
+			version, _ := reader.ReadString('\n')
+			version = strings.TrimSpace(version)
+
+			if service.IsValidVersion(version) {
+				// go1.20.4.darwin-amd64.tar.gz
+				fileName := "go" + version + ".darwin-amd64.tar.gz"
+				service.Install(fileName)
+				break
+			} else {
+				fmt.Print(yellow("输入不正确! "))
+			}
+		}
 	},
 }
 

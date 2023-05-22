@@ -10,9 +10,12 @@ import (
 	"upgo/global"
 )
 
+const DOWNLOAD_WEB = "https://go.dev/dl/"
+
 // 根据给定url下载文件
-func Downloaded(fullUrlFile string) bool {
+func Downloaded(stFileName string) bool {
 	// Build fileName from fullPath
+	fullUrlFile := DOWNLOAD_WEB + stFileName
 	fileURL, err := url.Parse(fullUrlFile)
 	if err != nil {
 		global.Error(fmt.Sprintf("url parse error: %s", err.Error()))
@@ -48,7 +51,7 @@ func Downloaded(fullUrlFile string) bool {
 	defer file.Close()
 
 	fileSize := fmt.Sprintf("%.2fMB", float64(size)/float64(1024*1024))
-	fmt.Printf("==> Downloading %s（%s）\n", fullUrlFile, fileSize)
+	PrintMagenta(fmt.Sprintf("==> Downloading %s（%s）", fullUrlFile, fileSize))
 
 	return true
 }

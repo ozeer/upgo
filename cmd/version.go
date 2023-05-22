@@ -4,6 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"upgo/service"
+
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
@@ -14,9 +16,11 @@ var versionCmd = &cobra.Command{
 	Short: "Print the version number of UpGo",
 	Long:  `All software has versions. This is UpGo's`,
 	Run: func(cmd *cobra.Command, args []string) {
-		color.Cyan("UpGo version 0.0.1")
+		goVersion := service.GetCurrentGoVersion()
+		color.Cyan("UpGo version 0.0.1 （Golang: " + goVersion + "）")
 	},
-	Example: "upgo -v",
+	Aliases: []string{"v", "V"},
+	Example: "upgo v",
 }
 
 func init() {

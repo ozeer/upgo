@@ -5,19 +5,24 @@ import (
 	"upgo/service"
 )
 
-func TestGetVersion(t *testing.T) {
+const TEST_GO_FILE = "go1.20.3.darwin-amd64.tar.gz"
+
+func TestGetLatestVersion(t *testing.T) {
 	t.Logf("Latest version: %s", service.GetLatestVersionFromApiSimple())
 }
 
-func TestDownloadFile(t *testing.T) {
-	service.Downloaded("https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz")
+func TestGetCurrentVersion(t *testing.T) {
+	t.Logf("Current version: %s", service.GetCurrentGoVersion())
 }
 
-func TestInstall(t *testing.T) {
-	service.Install("go1.20.4.darwin-amd64.tar.gz")
+func TestDownloadFile(t *testing.T) {
+	service.Downloaded(TEST_GO_FILE)
 }
 
 func TestCommand(t *testing.T) {
-	// shell sudo tar -C /usr/local -xzf /Users/zhouyang/web3/auto-upgrade-go/go1.20.4.darwin-amd64.tar.gz
-	service.Command("tar -xzf go1.20.4.darwin-amd64.tar.gz")
+	service.Command("go version")
+}
+
+func TestTopStableVersion(t *testing.T) {
+	service.TopStableVersion()
 }

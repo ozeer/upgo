@@ -9,27 +9,27 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// checkCmd represents the check command
-var checkCmd = &cobra.Command{
-	Use:   "check",
-	Short: "Check if there is a new version of golang",
-	Long:  `检查是否有新版本的golang`,
+// listCmd represents the list command
+var listCmd = &cobra.Command{
+	Use:     "list",
+	Short:   "List of the top 10 latest stable versions of Golang",
+	Long:    `列出前10个最新稳定版的Golang`,
+	Aliases: []string{"l", "ls", "li", "L"},
 	Run: func(cmd *cobra.Command, args []string) {
-		service.CheckNewestVersion()
+		service.TopStableVersion()
 	},
-	Aliases: []string{"c", "C"},
 }
 
 func init() {
-	rootCmd.AddCommand(checkCmd)
+	rootCmd.AddCommand(listCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// checkCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// listCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// checkCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
