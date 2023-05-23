@@ -1,18 +1,24 @@
-# 编译安装
+# 说明
+
+UpGo is a cli command line tool to update and upgrade Golang on your local computer。
+
+# 安装
+### compile installation
 ```
 git clone git@github.com:ozeer/upgo.git
 go install
 ```
-
-# 执行命令upgo
+### or It can be installed by running:
+```
+go install https://github.com/ozeer/upgo@latest
+```
+# 使用
 ```
 upgo
 ```
+<img width="567" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/2e1eae9b-d0b2-410a-bc00-f6abddfcf7fb">
 
-<img width="620" alt="image" src="https://github.com/ozeer/upgo/assets/8944442/31fb1049-79b7-41b0-9a8f-252db1780c80">
-
-
-# Todo
+# 待办
 * [x] 代码结构优化
 * [x] 增加更多丰富命令：如upgo update、upgo install、upgo uninstall，upgo list命令（列出可以更新的版本）、提示展示颜色
 * [x] 错误处理：在程序中实现错误处理机制，包括网络连接错误、下载错误、编译错误等情况。在出现错误时给予用户适当的反馈，并进行相应的处理。
