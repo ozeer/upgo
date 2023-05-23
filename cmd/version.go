@@ -4,10 +4,12 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"upgo/service"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // versionCmd represents the version command
@@ -17,7 +19,8 @@ var versionCmd = &cobra.Command{
 	Long:  `All software has versions. This is UpGo's`,
 	Run: func(cmd *cobra.Command, args []string) {
 		goVersion := service.GetCurrentGoVersion()
-		color.Cyan("UpGo version 0.0.1 （Golang: " + goVersion + "）")
+		upGoVersion := viper.GetString("app.version")
+		color.Cyan(fmt.Sprintf("UpGo version %s （Golang: %s）", upGoVersion, goVersion))
 	},
 	Aliases: []string{"v", "V"},
 	Example: "upgo v",
