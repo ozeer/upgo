@@ -10,7 +10,7 @@ go install
 ```
 ### or It can be installed by running:
 ```
-go install https://github.com/ozeer/upgo@latest
+go install github.com/ozeer/upgo@latest
 ```
 # 使用
 ```
