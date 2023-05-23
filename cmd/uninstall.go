@@ -5,7 +5,8 @@ package cmd
 
 import (
 	"fmt"
-	"upgo/service"
+
+	"github.com/ozeer/upgo/service"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"

@@ -1,4 +1,4 @@
-module upgo
+module github.com/ozeer/upgo
 
 go 1.20
 

@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"upgo/global"
+
+	"github.com/ozeer/upgo/global"
 
 	"github.com/fatih/color"
 )

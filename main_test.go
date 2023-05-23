@@ -2,7 +2,8 @@ package main
 
 import (
 	"testing"
-	"upgo/service"
+
+	"github.com/ozeer/upgo/service"
 )
 
 const TEST_GO_FILE = "go1.20.4.darwin-amd64.tar.gz"

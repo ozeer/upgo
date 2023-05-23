@@ -4,7 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"upgo/service"
+	"github.com/ozeer/upgo/service"
 
 	"github.com/spf13/cobra"
 )

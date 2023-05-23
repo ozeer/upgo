@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"os/exec"
 	"strings"
-	"upgo/global"
+
+	"github.com/ozeer/upgo/global"
 
 	"github.com/Masterminds/semver/v3"
 	"github.com/PuerkitoBio/goquery"

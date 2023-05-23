@@ -8,7 +8,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"upgo/service"
+
+	"github.com/ozeer/upgo/service"
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"

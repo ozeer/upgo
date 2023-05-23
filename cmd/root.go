@@ -7,7 +7,8 @@ import (
 	"os"
 	"regexp"
 	"strings"
-	"upgo/global"
+
+	"github.com/ozeer/upgo/global"
 
 	"github.com/common-nighthawk/go-figure"
 	"github.com/fatih/color"

@@ -7,7 +7,8 @@ import (
 	"net/url"
 	"os"
 	"strings"
-	"upgo/global"
+
+	"github.com/ozeer/upgo/global"
 
 	"github.com/cheggaaa/pb/v3"
 )

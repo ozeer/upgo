@@ -1,9 +1,9 @@
 package main
 
 import (
-	"upgo/cmd"
-	"upgo/conf"
-	"upgo/global"
+	"github.com/ozeer/upgo/cmd"
+	"github.com/ozeer/upgo/conf"
+	"github.com/ozeer/upgo/global"
 )
 
 func main() {
