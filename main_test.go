@@ -5,7 +5,7 @@ import (
 	"upgo/service"
 )
 
-const TEST_GO_FILE = "go1.20.3.darwin-amd64.tar.gz"
+const TEST_GO_FILE = "go1.20.4.darwin-amd64.tar.gz"
 
 func TestGetLatestVersion(t *testing.T) {
 	t.Logf("Latest version: %s", service.GetLatestVersionFromApiSimple())
@@ -16,7 +16,7 @@ func TestGetCurrentVersion(t *testing.T) {
 }
 
 func TestDownloadFile(t *testing.T) {
-	service.Downloaded(TEST_GO_FILE)
+	service.Download(TEST_GO_FILE)
 }
 
 func TestCommand(t *testing.T) {

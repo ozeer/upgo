@@ -47,7 +47,7 @@ func Install(fileName string) bool {
 	file, _ := PathExists(fileName)
 	if !file {
 		go func() {
-			download := Downloaded(fileName)
+			download := Download(fileName)
 			if download {
 				ch <- struct{}{}
 			}
