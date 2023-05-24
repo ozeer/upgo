@@ -1,7 +1,7 @@
 app:
   name: UpGo
   debug: false
-  version: 1.0.2
+  version: 1.0.3
   # 仓库所有者的用户名或组织名
   owner: ozeer
   # 仓库的名称
