@@ -17,7 +17,7 @@ func TestGetCurrentVersion(t *testing.T) {
 }
 
 func TestDownloadFile(t *testing.T) {
-	service.Download(TEST_GO_FILE)
+	service.Download(service.GO_DOWNLOAD_WEB+TEST_GO_FILE, TEST_GO_FILE)
 }
 
 func TestCommand(t *testing.T) {
@@ -26,4 +26,8 @@ func TestCommand(t *testing.T) {
 
 func TestTopStableVersion(t *testing.T) {
 	service.TopStableVersion()
+}
+
+func TestInitUpGo(t *testing.T) {
+	service.InitUpGo()
 }

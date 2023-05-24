@@ -17,9 +17,10 @@ import (
 
 // installCmd represents the install command
 var installCmd = &cobra.Command{
-	Use:   "install",
-	Short: "Install the specified version of Golang",
-	Long:  `安装指定版本Golang.`,
+	Use:     "install",
+	Short:   "Install the specified version of Golang",
+	Long:    `安装指定版本Golang.`,
+	Aliases: []string{"i"},
 	Run: func(cmd *cobra.Command, args []string) {
 		reader := bufio.NewReader(os.Stdin)
 		yellow := color.New(color.FgYellow).SprintFunc()
@@ -32,7 +33,9 @@ var installCmd = &cobra.Command{
 			if service.IsValidVersion(version) {
 				// go1.20.4.darwin-amd64.tar.gz
 				fileName := "go" + version + ".darwin-amd64.tar.gz"
-				service.Install(fileName)
+				// https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
+				fileUrl := service.GO_DOWNLOAD_WEB + fileName
+				service.Install(fileUrl, fileName)
 				break
 			} else {
 				fmt.Print(yellow("输入不正确! "))

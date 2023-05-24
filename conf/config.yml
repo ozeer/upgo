@@ -2,6 +2,12 @@ app:
   name: UpGo
   debug: false
   version: 1.0.2
+  # 仓库所有者的用户名或组织名
+  owner: ozeer
+  # 仓库的名称
+  repo: upgo
+  # UpGo默认安装目录
+  install_dir: /usr/local/bin
 log:
   # 日志文件最大尺寸(M)，超出限制后开始自动分割
   MaxSize: 1

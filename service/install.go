@@ -38,17 +38,21 @@ func Start() {
 
 	// go1.20.4.darwin-amd64.tar.gz
 	fileName := "go" + latestVersion + ".darwin-amd64.tar.gz"
-	Install(fileName)
+
+	// 文件完整下载地址: https://go.dev/dl/go1.20.4.darwin-amd64.tar.gz
+	fileUrl := GO_DOWNLOAD_WEB + fileName
+
+	Install(fileUrl, fileName)
 }
 
 // 安装Golang
-func Install(fileName string) bool {
+func Install(fileUrl, fileName string) bool {
 	PrintMagenta("==> Installing golang...")
 
 	file, _ := PathExists(fileName)
 	if !file {
 		go func() {
-			download := Download(fileName)
+			download := Download(fileUrl, fileName)
 			if download {
 				ch <- struct{}{}
 			}

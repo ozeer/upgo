@@ -19,7 +19,8 @@ type proxyWriter struct {
 	writeFunc func(p []byte) (n int, err error)
 }
 
-const DOWNLOAD_WEB = "https://go.dev/dl/"
+// Go下载页面
+const GO_DOWNLOAD_WEB = "https://go.dev/dl/"
 
 func (pw *proxyWriter) Write(p []byte) (n int, err error) {
 	n, err = pw.writeFunc(p)
@@ -30,10 +31,7 @@ func (pw *proxyWriter) Write(p []byte) (n int, err error) {
 }
 
 // 下载文件
-func Download(fileName string) bool {
-	// 文件完整下载地址
-	fileURL := DOWNLOAD_WEB + fileName
-
+func Download(fileUrl, fileName string) bool {
 	// 创建 HTTP 客户端
 	client := http.Client{
 		// Timeout: 15 * time.Second,
@@ -44,7 +42,7 @@ func Download(fileName string) bool {
 	}
 
 	// 发起 GET 请求
-	resp, err := client.Get(fileURL)
+	resp, err := client.Get(fileUrl)
 	if err != nil {
 		fmt.Printf("无法下载文件：%s\n", err)
 		return false
@@ -88,7 +86,7 @@ func Download(fileName string) bool {
 
 	// 打印下载文案
 	fileMBSize := fmt.Sprintf("%.2fMB", float64(fileSize)/float64(1024*1024))
-	PrintMagenta(fmt.Sprintf("==> Download complete！！！ %s（%s）", fileURL, fileMBSize))
+	PrintMagenta(fmt.Sprintf("==> Download complete！！！ %s（%s）", fileUrl, fileMBSize))
 
 	return true
 }
