@@ -1,7 +1,7 @@
 app:
   name: UpGo
   debug: false
-  version: 1.0.0
+  version: 1.0.2
 log:
   # 日志文件最大尺寸(M)，超出限制后开始自动分割
   MaxSize: 1

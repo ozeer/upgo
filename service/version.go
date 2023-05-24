@@ -171,3 +171,18 @@ func IsValidVersion(version string) bool {
 
 	return true
 }
+
+// 升级UpGo到最新版本
+func SelfUpdate() {
+	magenta := color.New(color.FgMagenta).SprintFunc()
+	fmt.Println(magenta("==> UpGo self updating..."))
+	res := Command("go install github.com/ozeer/upgo@latest")
+
+	if res {
+		fmt.Println(magenta("==> Update succeeded!"))
+	} else {
+		red := color.New(color.FgRed).SprintFunc()
+		text := red("==> Update fail!")
+		fmt.Println(text)
+	}
+}
