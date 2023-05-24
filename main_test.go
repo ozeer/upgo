@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"github.com/ozeer/upgo/conf"
 	"github.com/ozeer/upgo/service"
 )
 
@@ -16,7 +17,7 @@ func TestGetCurrentVersion(t *testing.T) {
 	t.Logf("Current version: %s", service.GetCurrentGoVersion())
 }
 
-func TestDownloadFile(t *testing.T) {
+func TestDownload(t *testing.T) {
 	service.Download(service.GO_DOWNLOAD_WEB+TEST_GO_FILE, TEST_GO_FILE)
 }
 
@@ -29,5 +30,7 @@ func TestTopStableVersion(t *testing.T) {
 }
 
 func TestInitUpGo(t *testing.T) {
-	service.InitUpGo()
+	// 初始化配置
+	conf.InitConfig()
+	service.InitUpGo("/usr/local/bin")
 }
