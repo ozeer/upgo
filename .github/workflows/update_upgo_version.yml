@@ -33,14 +33,14 @@ jobs:
             latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
             echo "TAG=$latest_tag" >> $GITHUB_ENV
           fi
-      # 第三步：更新yml配置文件中的版本号并提交修改后的代码
+      # 第三步：引用第三方workflow更新yml配置文件并提交修改后的代码
       - name: 更新 config.yml
         uses: fjogeleit/yaml-update-action@main
         with:
           branch: master
           targetBranch: master
           description: Test GitHub Action
-          message: 'Update Upgo Version' 
+          message: '修改config.yml文件，更新UpGo版本号' 
           title: 'Version Updates'
           token: ${{ secrets.ACCESS_TOKEN }}
           valueFile: 'conf/config.yml'
