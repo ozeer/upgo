@@ -193,7 +193,7 @@ func GetUpGoLatestVersionTag() string {
 	cmd := exec.Command("git", "describe", "--tags", "--abbrev=0")
 	output, err := cmd.Output()
 	if err != nil {
-		fmt.Println("Error:", err)
+		global.Error("GetUpGoLatestVersionTag error: " + err.Error())
 		return UP_GO_INITIAL_VERSION
 	}
 
