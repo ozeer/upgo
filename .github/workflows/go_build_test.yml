@@ -25,6 +25,7 @@ jobs:
     - name: Go test
       run: go test -v ./...
   update-UpGo-version:
+    needs: go-build-test
     runs-on: ubuntu-latest
     steps:
       - name: Get latest tag
