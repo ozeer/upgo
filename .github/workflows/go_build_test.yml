@@ -1,12 +1,10 @@
 # This workflow will build a golang project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
 
-name: Go build and test
+name: Go编译和测试
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
     branches: [ "master" ]
 
 jobs:
@@ -21,8 +19,8 @@ jobs:
       with:
         go-version: 1.20.4
 
-    - name: Build
+    - name: Go build
       run: go build -v ./...
 
-    - name: Test
+    - name: Go test
       run: go test -v ./...

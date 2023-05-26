@@ -186,3 +186,16 @@ func SelfUpdate() {
 		fmt.Println(text)
 	}
 }
+
+func GetUpGoLatestVersionTag() string {
+	cmd := exec.Command("git", "describe", "--tags", "--abbrev=0")
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error:", err)
+		return ""
+	}
+
+	tag := strings.TrimSpace(string(output))
+
+	return tag
+}
