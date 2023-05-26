@@ -2,9 +2,10 @@ app:
   name: UpGo
   debug: false
   version: v1.0.4
+  install_dir: /usr/local/bin
+github:
   owner: ozeer
   repo: upgo
-  install_dir: /usr/local/bin
 log:
   MaxSize: 1
   MaxBackups: 10

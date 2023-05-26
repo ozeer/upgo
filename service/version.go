@@ -21,6 +21,7 @@ type Version struct {
 
 // 未安装golang时的标识
 const DEFAULT_GOLANG_VERSION = "go0"
+const UP_GO_INITIAL_VERSION = "1.0.0"
 
 // 方式一：通过解析Go官方网页获取最新稳定版本Golang编号
 func GetLatestVersionFromHtml() string {
@@ -187,12 +188,13 @@ func SelfUpdate() {
 	}
 }
 
+// 获取UpGo最新版本的标签值
 func GetUpGoLatestVersionTag() string {
 	cmd := exec.Command("git", "describe", "--tags", "--abbrev=0")
 	output, err := cmd.Output()
 	if err != nil {
 		fmt.Println("Error:", err)
-		return ""
+		return UP_GO_INITIAL_VERSION
 	}
 
 	tag := strings.TrimSpace(string(output))

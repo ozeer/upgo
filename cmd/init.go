@@ -27,7 +27,7 @@ var initCmd = &cobra.Command{
 		defaultInstallDir := viper.GetString("app.install_dir")
 
 		for {
-			fmt.Print(yellow(fmt.Sprintf("请输入你想安装的目录（默认：%s）: ", defaultInstallDir)))
+			fmt.Print(yellow(fmt.Sprintf("请输入你想将UpGo安装到的目录（默认：%s）: ", defaultInstallDir)))
 
 			// 获取用户输入的目录路径
 			// fmt.Scanln(&installDir)

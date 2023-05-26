@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"os/exec"
 	"sort"
+	"strings"
 
 	"github.com/ozeer/upgo/global"
 	"github.com/spf13/viper"
@@ -16,9 +18,9 @@ func InitUpGo(installDir string) {
 	PrintMagenta("==> Init UpGo")
 
 	// 仓库所有者的用户名或组织名
-	owner := viper.GetString("app.owner")
+	owner := viper.GetString("github.owner")
 	// 仓库的名称
-	repo := viper.GetString("app.repo")
+	repo := viper.GetString("github.repo")
 
 	// 使用GitHub API获取仓库的最新发布信息
 	releaseURL := fmt.Sprintf("https://api.github.com/repos/%s/%s/releases/latest", owner, repo)
@@ -87,4 +89,17 @@ func CheckInputDirIsValid(dirPath string) bool {
 	}
 
 	return true
+}
+
+// 检查Golang环境是否正常配置
+func IsGoEnvConfigured() bool {
+	cmd := exec.Command("go", "version")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		global.Error("检查Golang环境出现错误: " + err.Error())
+		return false
+	}
+
+	goVersion := string(output)
+	return strings.Contains(goVersion, "go")
 }
