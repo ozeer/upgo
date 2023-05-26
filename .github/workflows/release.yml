@@ -11,9 +11,9 @@ jobs:
       # 第一步：切换到github目录下面
       - name: "Checkout代码"
         uses: actions/checkout@v3
-        with:
+        # with:
           # Required due to the way Git works, without it this action won't be able to find any or the correct tags
-          fetch-depth: 0
+          # fetch-depth: 0
       # 第二步：获取当前最新tag标签值
       - name: Get latest tag
         id: get-tag
