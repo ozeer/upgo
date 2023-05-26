@@ -10,9 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-      with:
-        # Required due to the way Git works, without it this action won't be able to find any or the correct tags
-        fetch-depth: 0
 
     - name: Set up Go
       uses: actions/setup-go@v3
@@ -25,9 +22,12 @@ jobs:
     - name: Go test
       run: go test -v ./...
   update-UpGo-version:
-    needs: go-build-test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          # Required due to the way Git works, without it this action won't be able to find any or the correct tags
+          fetch-depth: 0
       - name: Get latest tag
         id: get-tag
         run: |
