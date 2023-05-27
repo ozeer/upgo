@@ -14,13 +14,11 @@ func main() {
 
 	// 初始化日志
 	global.Logger = conf.InitLogger()
-	defer func() {
-		err := global.Logger.Sync()
-		if err != nil {
-			// 处理错误的逻辑
-			log.Println("日志错误：" + err.Error())
-		}
-	}()
+	err := global.Logger.Sync()
+	if err != nil {
+		// 处理错误的逻辑
+		log.Println("日志错误：" + err.Error())
+	}
 
 	// 启动Cobra命令行
 	cmd.Execute()
