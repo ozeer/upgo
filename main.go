@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/ozeer/upgo/cmd"
 	"github.com/ozeer/upgo/conf"
 	"github.com/ozeer/upgo/global"
@@ -16,7 +18,7 @@ func main() {
 		err := global.Logger.Sync()
 		if err != nil {
 			// 处理错误的逻辑
-			panic("日志错误：" + err.Error())
+			log.Println("日志错误：" + err.Error())
 		}
 	}()
 
