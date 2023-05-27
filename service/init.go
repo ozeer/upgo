@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"sort"
 	"strings"
 
 	"github.com/ozeer/upgo/global"
@@ -44,19 +43,25 @@ func InitUpGo(installDir string) {
 		return
 	}
 
-	// 根据文件名称排序，以便选择要下载的文件
-	sort.Slice(release.Assets, func(i, j int) bool {
-		return release.Assets[i].Name < release.Assets[j].Name
-	})
-
-	// 获取最新发布的文件下载链接
-	latestAsset := release.Assets[len(release.Assets)-1]
-	downloadURL := latestAsset.BrowserDownloadURL
+	// 默认只选取固定的.darwin_amd64.tar.gz文件下载
+	var downloadURL = ""
+	var fileName = ""
+	for _, v := range release.Assets {
+		if strings.Contains(v.Name, "darwin_amd64.tar.gz") {
+			downloadURL = v.BrowserDownloadURL
+			fileName = v.Name
+		}
+	}
 
 	// 下载文件
-	finish := Download(downloadURL, latestAsset.Name)
+	finish := Download(downloadURL, fileName)
 
 	if finish {
+		// 解压压缩文件并进入文件夹
+		// unzipFolder := strings.TrimSuffix(fileName, ".tar.gz")
+		// Command("mkdir " + unzipFolder)
+		Command("tar -xzf " + fileName)
+
 		// 分配可执行权限
 		Command("chmod +x upgo")
 
@@ -65,6 +70,8 @@ func InitUpGo(installDir string) {
 
 		// 如果执行成功，删除可执行文件
 		if execRes {
+			Command("rm " + fileName)
+			Command("rm LICENSE README.md")
 			PrintMagenta("==> UpGo初始化安装成功!安装目录：" + installDir)
 		}
 	}
