@@ -17,7 +17,7 @@ func main() {
 	err := global.Logger.Sync()
 	if err != nil {
 		// 处理错误的逻辑
-		log.Printf("日志错误: %s", err.Error())
+		log.Println("日志错误:", err)
 	}
 
 	// 启动Cobra命令行
