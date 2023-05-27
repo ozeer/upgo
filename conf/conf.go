@@ -6,7 +6,6 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/ozeer/upgo/service"
 	"github.com/spf13/viper"
 )
 
@@ -28,7 +27,21 @@ func InitConfig() {
 
 	fmt.Println("当前所在目录:", dir)
 	fmt.Println("InitConfig dir: ", dir)
-	service.Command("ls")
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		fmt.Println("读取目录失败:", err)
+		return
+	}
+
+	fmt.Println("当前目录下的文件列表:")
+	for _, file := range files {
+		if file.IsDir() {
+			// 如果需要只打印文件而不包括目录，可以在此处添加过滤逻辑
+			fmt.Println(file.Name(), "(目录)")
+		} else {
+			fmt.Println(file.Name())
+		}
+	}
 
 	if err != nil {
 		panic(fmt.Sprintf("Load config file error: %s", err.Error()))
