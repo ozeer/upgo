@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/ozeer/upgo/cmd"
 	"github.com/ozeer/upgo/conf"
 	"github.com/ozeer/upgo/global"
@@ -16,11 +14,7 @@ func main() {
 	global.Logger = conf.InitLogger()
 	defer func() {
 		// nolint:errcheck
-		err := global.Logger.Sync()
-		if err != nil {
-			// 处理错误的逻辑
-			log.Println("日志错误：", err)
-		}
+		_ = global.Logger.Sync()
 	}()
 
 	// 启动Cobra命令行
