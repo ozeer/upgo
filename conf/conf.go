@@ -18,6 +18,8 @@ func InitConfig() {
 	viper.AddConfigPath(dir)
 	err := viper.ReadInConfig()
 
+	fmt.Println("InitConfig dir: ", dir)
+
 	if err != nil {
 		panic(fmt.Sprintf("Load config file error: %s", err.Error()))
 	}
