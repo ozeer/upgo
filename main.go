@@ -19,7 +19,7 @@ func main() {
 		err := global.Logger.Sync()
 		if err != nil {
 			// 处理错误的逻辑
-			log.Println("日志错误：" + err.Error())
+			log.Println("日志错误：", err)
 		}
 	}()
 
