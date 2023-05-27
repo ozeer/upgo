@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log"
 	"testing"
 
 	"github.com/ozeer/upgo/conf"
@@ -24,7 +25,13 @@ func TestGetUpGoLatestVersionTag(t *testing.T) {
 
 	// 初始化日志
 	global.Logger = conf.InitLogger()
-	defer global.Logger.Sync()
+	defer func() {
+		err := global.Logger.Sync()
+		if err != nil {
+			// 处理错误的逻辑
+			log.Println("日志错误：", err.Error())
+		}
+	}()
 
 	t.Logf("Latest tag: %s", GetUpGoLatestVersionTag())
 }
