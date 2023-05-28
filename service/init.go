@@ -47,7 +47,7 @@ func InitUpGo(installDir string) {
 	var downloadURL = ""
 	var fileName = ""
 	for _, v := range release.Assets {
-		if strings.Contains(v.Name, "darwin_amd64.tar.gz") {
+		if strings.Contains(v.Name, "Darwin_x86_64.tar.gz") {
 			downloadURL = v.BrowserDownloadURL
 			fileName = v.Name
 		}
