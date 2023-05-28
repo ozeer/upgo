@@ -29,7 +29,7 @@ jobs:
           # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
           version: latest
-          args: release --clean -f ./config.yml
+          args: release --clean -f config.yml
           
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
