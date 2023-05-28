@@ -13,7 +13,7 @@ import (
 var listCmd = &cobra.Command{
 	Use:     "list",
 	Short:   "List of the top 15 latest stable versions of Golang",
-	Long:    `列出前10个最新稳定版的Golang`,
+	Long:    `列出前15个最新稳定版的Golang`,
 	Aliases: []string{"l", "ls", "li", "L"},
 	Run: func(cmd *cobra.Command, args []string) {
 		service.TopStableVersion()
