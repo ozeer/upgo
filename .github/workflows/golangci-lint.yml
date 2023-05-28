@@ -15,7 +15,7 @@ permissions:
 jobs:
   GolangCI:
     # 该push事件不是由其他workflow触发的，因此该作业将被执行
-    if: github.actor != 'actions@github.com'
+    if: ! startsWith(github.event.head_commit.message, 'Update UpGo Version')
     name: lint
     runs-on: ubuntu-latest
     steps:
