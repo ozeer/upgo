@@ -6,7 +6,6 @@ on:
       - v*
     branches:
       - master
-      - main
   pull_request:
 
 permissions:
@@ -15,10 +14,11 @@ permissions:
   # pull-requests: read
 jobs:
   GolangCI:
+    # 该push事件不是由其他workflow触发的，因此该作业将被执行
+    if: >-
+      github.event.push.user.login != 'dependabot[bot]'
     name: lint
     runs-on: ubuntu-latest
-    # 该push事件不是由其他workflow触发的，因此该作业将被执行
-    if: github.event.source == ''
     steps:
       - uses: actions/setup-go@v4
         with:

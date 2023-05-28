@@ -7,6 +7,9 @@ on:
 
 jobs:
   update-file-version:
+    # 该push事件不是由其他workflow触发的，因此该作业将被执行
+    if: >-
+      github.event.push.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       # 第一步：切换到github目录下面

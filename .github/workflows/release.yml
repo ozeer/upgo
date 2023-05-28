@@ -1,9 +1,9 @@
-name: goreleaser
+name: Golang包发布
 
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 permissions:
   contents: write
