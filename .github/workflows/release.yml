@@ -20,6 +20,8 @@ jobs:
       -
         name: Set up Go
         uses: actions/setup-go@v4
+        with:
+          go-version: stable
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4
@@ -27,7 +29,7 @@ jobs:
           # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
           version: latest
-          args: release --clean -f /conf/config.yml
+          args: release --rm-dist -f ./conf/config.yml
           
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
