@@ -7,9 +7,21 @@ on:
 jobs:
   go-build-test:
     # 该push事件不是由其他workflow触发的，因此该作业将被执行
-    if: ! startsWith(github.event.head_commit.message, 'Update')
     runs-on: ubuntu-latest
     steps:
+      - name: 'Ensure no Update UpGo Version in commit messages'
+        run: |
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_REPO="${{ github.event.pull_request.head.repo.full_name }}"
+          TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          commits_url="https://api.github.com/repos/$PR_REPO/pulls/$PR_NUMBER/commits"
+          commit_messages=$(curl -s -H "Authorization: token $TOKEN" $commits_url | jq '.[].commit.message')
+          for message in $commit_messages; do
+            if [[ $message == *"Update UpGo Version"* ]]; then
+              echo "Found Update UpGo Version in commit message: $message"
+              exit 1
+            fi
+          done
       - uses: actions/checkout@v3
 
       - name: Set up Go
