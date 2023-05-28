@@ -1,0 +1,18 @@
+app:
+  name: UpGo
+  debug: false
+  version: v1.0.5
+  install_dir: /usr/local/bin
+github:
+  owner: ozeer
+  repo: upgo
+log:
+  MaxSize: 1
+  MaxBackups: 10
+  MaxAge: 90
+  Compress: false
+  Dir: /tmp/UpGo/
+go:
+  GoRoot: /usr/local
+  GO111MODULE: 'on'
+  GoProxy: https://goproxy.cn,direct
