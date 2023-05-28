@@ -18,7 +18,7 @@ import (
 // installCmd represents the install command
 var installCmd = &cobra.Command{
 	Use:     "install",
-	Short:   "Install the specified version of Golang(Default dir: /usr/local)",
+	Short:   "Install the specified version of Golang（Default dir: /usr/local）",
 	Long:    `安装指定版本Golang.`,
 	Aliases: []string{"i"},
 	Run: func(cmd *cobra.Command, args []string) {
