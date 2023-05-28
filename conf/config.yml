@@ -1,7 +1,7 @@
 app:
   name: UpGo
   debug: false
-  version: v1.10.0
+  version: v1.11.0
   install_dir: /usr/local/bin
 github:
   owner: ozeer
