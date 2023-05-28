@@ -8,8 +8,7 @@ on:
 jobs:
   update-file-version:
     # 该push事件不是由其他workflow触发的，因此该作业将被执行
-    if:
-      github.event.push.user.login != 'dependabot[bot]'
+    if: github.actor != 'actions@github.com'
     runs-on: ubuntu-latest
     steps:
       # 第一步：切换到github目录下面
@@ -42,10 +41,13 @@ jobs:
           branch: master
           targetBranch: master
           description: Update Version GitHub Action
-          message: "Update Version"
+          message: 'Update UpGo Version to ${{ env.TAG }}' 
           title: "Version Updates"
           token: ${{ secrets.ACCESS_TOKEN }}
           valueFile: "conf/config.yml"
           propertyPath: "app.version"
           value: ${{ env.TAG }}
+          labels: 'version,yaml-updates'
           commitChange: true
+          commitUserName: zy
+          commitUserEmail: actions@github.com
