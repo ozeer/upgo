@@ -24,12 +24,12 @@ jobs:
           go-version: stable
       -
         name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v4
+        uses: goreleaser/goreleaser-action@v4.2.0
         with:
           # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
           version: latest
-          args: release --rm-dist -f ./conf/config.yml
+          args: release --clean
           
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
