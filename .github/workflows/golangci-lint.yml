@@ -15,7 +15,7 @@ permissions:
 jobs:
   GolangCI:
     # 该push事件不是由其他workflow触发的，因此该作业将被执行
-    if: >-
+    if:
       github.event.push.user.login != 'dependabot[bot]'
     name: lint
     runs-on: ubuntu-latest
