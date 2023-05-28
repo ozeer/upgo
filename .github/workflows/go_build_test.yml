@@ -1,8 +1,6 @@
 name: Go编译和测试
 
 on:
-  schedule:
-    - cron: 0 8 * * *
   push:
     branches: [ "master" ]
 
