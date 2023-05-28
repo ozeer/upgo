@@ -1,4 +1,5 @@
 name: GolangCI-lint
+
 on:
   push:
     tags:
@@ -7,6 +8,7 @@ on:
       - master
       - main
   pull_request:
+
 permissions:
   contents: read
   # Optional: allow read access to pull request. Use with `only-new-issues` option.
@@ -15,10 +17,12 @@ jobs:
   GolangCI:
     name: lint
     runs-on: ubuntu-latest
+    # 限制在非机器人触发时执行
+    if: github.actor != 'github-actions[bot]'
     steps:
       - uses: actions/setup-go@v4
         with:
-          go-version: '1.20.4'
+          go-version: "1.20.4"
           cache: false
       - uses: actions/checkout@v3
       - name: golangci-lint

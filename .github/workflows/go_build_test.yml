@@ -8,6 +8,8 @@ jobs:
 
   go-build-test:
     runs-on: ubuntu-latest
+    # 限制在非机器人触发时执行
+    if: github.actor != 'github-actions[bot]'
     steps:
     - uses: actions/checkout@v3
 
