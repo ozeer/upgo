@@ -12,18 +12,50 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      # 第一步：切换到github目录下面
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      -
-        name: Set up Go
+      # 第二步：获取当前最新tag标签值
+      - name: Get latest tag
+        id: get-tag
+        run: |
+          echo "当前文件夹是："
+          pwd
+          echo "当前所有Git tag标签值："
+          git tag -l
+          # 检查是否存在标签
+          if [[ -z $(git tag -l) ]]; then
+            echo "No tags found."
+            echo "TAG=::" >> $GITHUB_ENV
+          else
+            # 获取最新的标签
+            latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+            echo "TAG=$latest_tag" >> $GITHUB_ENV
+          fi
+      # 第三步：更新yml配置文件并提交修改后的代码
+      - name: 更新 config.yml
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          branch: master
+          targetBranch: master
+          description: Update Version GitHub Action
+          message: 'Update UpGo Version to ${{ env.TAG }}' 
+          title: "Version Updates"
+          token: ${{ secrets.ACCESS_TOKEN }}
+          valueFile: "conf/config.yml"
+          propertyPath: "app.version"
+          value: ${{ env.TAG }}
+          labels: 'version,yaml-updates'
+          commitChange: true
+          commitUserName: zy
+          commitUserEmail: actions@github.com
+      - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: stable
-      -
-        name: Run GoReleaser
+      - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4.2.0
         with:
           # either 'goreleaser' (default) or 'goreleaser-pro'
