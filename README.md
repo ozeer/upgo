@@ -1,5 +1,7 @@
 # 说明
 
+tet
+
 UpGo is a cli command line tool to update and upgrade Golang on your local computer。
 
 # 安装
