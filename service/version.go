@@ -20,8 +20,13 @@ type Version struct {
 }
 
 // 未安装golang时的标识
-const DEFAULT_GOLANG_VERSION = "go0"
-const UP_GO_INITIAL_VERSION = "1.0.0"
+const (
+	DEFAULT_GOLANG_VERSION = "go0"
+	UP_GO_INITIAL_VERSION  = "1.0.0"
+	URL_GO_STABLE          = "https://go.dev/dl/?mode=json&include=stable"
+	URL_GO_NEWEST          = "https://go.dev/VERSION?m=text"
+	URL_GO_NEWEST_STABLE   = "https://go.dev/dl/?mode=json&include=all"
+)
 
 // 方式一：通过解析Go官方网页获取最新稳定版本Golang编号
 func GetLatestVersionFromHtml() string {
@@ -46,7 +51,7 @@ func GetLatestVersionFromHtml() string {
 
 // 方式二：通过Go官方的接口获取最新稳定版本Golang编号
 func GetLatestVersionFromApi() string {
-	resp, err := http.Get("https://go.dev/dl/?mode=json&include=stable")
+	resp, err := http.Get(URL_GO_STABLE)
 	if err != nil {
 		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
 	}
@@ -70,7 +75,7 @@ func GetLatestVersionFromApi() string {
 
 // 方式三：使用官方更精简的接口获取最新稳定版本Golang编号
 func GetLatestVersionFromApiSimple() string {
-	resp, err := http.Get("https://go.dev/VERSION?m=text")
+	resp, err := http.Get(URL_GO_NEWEST)
 	if err != nil {
 		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
 	}
@@ -115,7 +120,7 @@ func HasNewVersion(latest, current string) bool {
 // 查询最近15个最新稳定版本的Golang
 // https://go.dev/dl/?mode=json&include=all
 func TopStableVersion() {
-	resp, err := http.Get("https://go.dev/dl/?mode=json&include=all")
+	resp, err := http.Get(URL_GO_NEWEST_STABLE)
 	if err != nil {
 		global.Error(fmt.Sprintf("error fetching version: %s", err.Error()))
 	}
