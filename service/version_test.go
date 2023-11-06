@@ -1,15 +1,27 @@
 package service
 
 import (
+	"fmt"
 	"log"
 	"testing"
+	"time"
 
 	"github.com/ozeer/upgo/conf"
 	"github.com/ozeer/upgo/global"
 )
 
 func TestGetLatestVersion(t *testing.T) {
+	begin1 := time.Now()
+	t.Logf("Latest version: %s", GetLatestVersionFromHtml())
+	fmt.Printf("\ncost: %dms\n", time.Since(begin1).Milliseconds())
+
+	begin2 := time.Now()
+	t.Logf("Latest version: %s", GetLatestVersionFromApi())
+	fmt.Printf("\ncost: %dms\n", time.Since(begin2).Milliseconds())
+
+	begin3 := time.Now()
 	t.Logf("Latest version: %s", GetLatestVersionFromApiSimple())
+	fmt.Printf("\ncost: %dms\n", time.Since(begin3).Milliseconds())
 }
 
 func TestGetCurrentVersion(t *testing.T) {

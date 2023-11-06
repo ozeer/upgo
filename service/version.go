@@ -88,7 +88,13 @@ func GetLatestVersionFromApiSimple() string {
 			global.Error(fmt.Sprintf("error reading response: %s", err.Error()))
 		}
 
-		latestVersion = string(body)
+		// 官方最新返回信息为
+		// “go1.21.3
+		// time 2023-10-09T17:04:35Z”
+		// 早期的为”go1.21.3“
+		// latestVersion = string(body)
+		bodyString := string(body)
+		latestVersion = strings.Split(bodyString, "\n")[0]
 	} else {
 		global.Error(fmt.Sprintf("Error fetching version:  %s", resp.Status))
 	}
